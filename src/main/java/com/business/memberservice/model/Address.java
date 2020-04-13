@@ -1,54 +1,29 @@
 package com.business.memberservice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.Size;
 
-@Entity
+
+@Embeddable
 public class Address {
 
-	    @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
-
-	    @Size(max = 100)
 	    private String address1;
 
-	    @Size(max = 100)
 	    private String address2;
 
-	    @Size(max = 100)
 	    private String street;
 
-	    @Size(max = 100)
 	    private String city;
 
-	    @Size(max = 100)
 	    private String state;
 
-	    @Size(max = 100)
 	    private String country;
 
-	    @Size(max = 32)
 	    private String zipCode;
-
-	    @ManyToOne
-	    @JoinColumn(name = "member_id", nullable = false)
-	    private Member member;
-
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
 
 		public String getAddress1() {
 			return address1;
@@ -106,16 +81,5 @@ public class Address {
 			this.zipCode = zipCode;
 		}
 
-		public Member getMember() {
-			return member;
-		}
-
-		public void setMember(Member member) {
-			this.member = member;
-		}
-	
-	    
-	    
-	    	    
 	    
 }

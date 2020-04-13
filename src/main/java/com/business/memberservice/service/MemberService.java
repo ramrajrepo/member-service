@@ -10,10 +10,10 @@ import com.business.memberservice.model.Member;
 @Service
 public interface MemberService {
 	
-	public Member saveEntityService(Member member);
-	public Member updateEntityService(Member member);
-	public Optional<Member> getEntityService(Long id);
-	public List<Member> getAllEntityService(Integer pageNo, Integer pageSize, String sortBy);
-	public void deleteEntityService(Long id);
+	public Member save(Member member);
+	public Member saveOrUpdate(Member member);
+	public Optional<Member> findById(Long id);
+	public List<Member> findAll(Integer pageNo, Integer pageSize, String sortBy);
+	public void deleteById(Long id);
 	
 }

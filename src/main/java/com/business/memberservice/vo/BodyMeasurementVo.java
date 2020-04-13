@@ -1,22 +1,13 @@
-package com.business.memberservice.model;
+package com.business.memberservice.vo;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+@Component
+public class BodyMeasurementVo {
 
-@Entity
-public class BodyMeasurement {
-
-	@Id
-	@GeneratedValue
-	private int id;
+	private Long id;
 
 	private int heightInCms;
 
@@ -26,24 +17,11 @@ public class BodyMeasurement {
 
 	private LocalDateTime dateOfMeasurement;
 
-	@ManyToOne
-	@JoinColumn(name = "member_id", nullable = false)
-	private Member member;
-
-	@JsonIgnore
-	public Member getMember() {
-		return member;
-	}
-
-	public void setMember(Member member) {
-		this.member = member;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,4 +57,8 @@ public class BodyMeasurement {
 		this.dateOfMeasurement = dateOfMeasurement;
 	}
 
+	
+	
+	
+	
 }

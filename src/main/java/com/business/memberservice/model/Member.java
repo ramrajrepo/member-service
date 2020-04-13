@@ -1,22 +1,23 @@
 package com.business.memberservice.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.List;
-import javax.persistence.OneToOne;
+import java.util.Set;
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 
 
@@ -29,18 +30,12 @@ public class Member {
 	  @GeneratedValue(strategy=GenerationType.AUTO)
 	  private Long id;
 	  private String memberId;
-	  @NotNull(message="Full name should not be empety!")
 	  private String fullName;
-	  @NotNull(message="Gender should not be empety!")
 	  private String gender;
-	  @NotNull(message="Date of birth should not be empety!")
-	  private String dob;
-	  @OneToMany
-	  @JoinColumn(name = "address")
-	  private List<Address> address;
-	  @Email(message="Invalid email !")
+	  private LocalDate dob;
+      @ElementCollection(fetch = FetchType.LAZY)
+	  private Set<Address> addresses = new HashSet<>();
 	  private String email;
-	  @Pattern(regexp="(^$|[0-9]{10})")
 	  private String MobileNo;
 	  private String idType;
 	  private String idNo;
@@ -48,18 +43,18 @@ public class Member {
 	  private String photo;
 	  private String shift;
 	  private Long membershipPlanId;
-	  @OneToMany
-	  @JoinColumn(name = "bodyMeasurements")
+	  @OneToMany(cascade = CascadeType.ALL)
 	  private List<BodyMeasurement> bodyMeasurements = new ArrayList<>(0);
 	  private Long trainerId;
-	  @OneToOne(fetch = FetchType.LAZY)
+	  @ManyToOne(fetch = FetchType.LAZY)
+	  @JoinColumn(name = "dietChart_id")
 	  private DietChart dietChart;
 	  private LocalDateTime joiningDate;
 	  private boolean isActive;
-	  @CreationTimestamp
-	  private LocalDateTime createDateTime;
-	  @UpdateTimestamp
-	  private LocalDateTime updateDateTime;
+	  //@Temporal(TemporalType.TIMESTAMP)
+	  private LocalDateTime createdAt;
+	  //@Temporal(TemporalType.TIMESTAMP)
+	  private LocalDateTime updatedAt;
 	  private boolean isDeleted;
 	public Long getId() {
 		return id;
@@ -85,17 +80,17 @@ public class Member {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
-	public void setDob(String dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	public List<Address> getAddress() {
-		return address;
+	public Set<Address> getAddresses() {
+		return addresses;
 	}
-	public void setAddress(List<Address> address) {
-		this.address = address;
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
 	}
 	public String getEmail() {
 		return email;
@@ -175,17 +170,17 @@ public class Member {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public LocalDateTime getCreateDateTime() {
-		return createDateTime;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
-	public void setCreateDateTime(LocalDateTime createDateTime) {
-		this.createDateTime = createDateTime;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
-	public LocalDateTime getUpdateDateTime() {
-		return updateDateTime;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
-	public void setUpdateDateTime(LocalDateTime updateDateTime) {
-		this.updateDateTime = updateDateTime;
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	public boolean isDeleted() {
 		return isDeleted;
@@ -194,13 +189,6 @@ public class Member {
 		this.isDeleted = isDeleted;
 	}
 	
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	  
 	  
 	  
