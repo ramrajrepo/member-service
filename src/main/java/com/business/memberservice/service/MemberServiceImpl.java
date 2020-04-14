@@ -2,7 +2,6 @@ package com.business.memberservice.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,13 +18,13 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public Member save(Member member) {
-		return repository.save(member);
+	public Optional<Member> save(Member member) {
+		return Optional.ofNullable(repository.save(member));
 	}
 
 	@Override
-	public Member saveOrUpdate(Member member) {
-		return repository.saveAndFlush(member);
+	public Optional<Member> saveOrUpdate(Member member) {
+		return Optional.ofNullable(repository.saveAndFlush(member));
 	}
 
 	@Override
@@ -43,11 +42,13 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void deleteById(Long id) {
-		if(repository.existsById(id))
 			repository.deleteById(id);
 		
 	}
 
 
+	public boolean existsById(Long id) {
+		return repository.existsById(id);
+	}
 
 }

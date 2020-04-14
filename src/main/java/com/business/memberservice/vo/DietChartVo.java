@@ -1,6 +1,10 @@
 package com.business.memberservice.vo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class DietChartVo {
@@ -13,8 +17,7 @@ public class DietChartVo {
 	    private String friday;
 	    private String saturday;
 	    private String sunday;
-	    
-	    
+	    private Set<MemberVo> Members = new HashSet<>();
 		public Long getId() {
 			return id;
 		}
@@ -63,6 +66,13 @@ public class DietChartVo {
 		public void setSunday(String sunday) {
 			this.sunday = sunday;
 		}
+		public Set<MemberVo> getMembers() {
+			return Members;
+		}
+		public void setMembers(Set<MemberVo> members) {
+			Members = members;
+		}
+	  
 	    
 	    
 	    

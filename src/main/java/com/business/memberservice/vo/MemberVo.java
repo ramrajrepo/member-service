@@ -7,17 +7,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.ElementCollection;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
-
 import com.business.memberservice.model.Address;
-
 
 @Component
 public class MemberVo extends RepresentationModel<MemberVo>{
@@ -41,23 +37,21 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	  private String idCopy;
 	  private String photo;
 	  private String shift;
-	  private Long membershipPlanId;
+	  private Set<MemberShipPlanVo> memberShipPlans = new HashSet<>();
       private List<BodyMeasurementVo> bodyMeasurements=new ArrayList<>(0);
 	  private Long trainerId;
 	  private DietChartVo dietChart;
+	  private WorkoutChartVo workoutChart;
 	  private LocalDateTime joiningDate;
 	  private boolean isActive;
-
-	  
-	  
-	public String getMemberId() {
-		return memberId;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getMemberId() {
+		return memberId;
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
@@ -128,11 +122,11 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setShift(String shift) {
 		this.shift = shift;
 	}
-	public Long getMembershipPlanId() {
-		return membershipPlanId;
+	public Set<MemberShipPlanVo> getMemberShipPlans() {
+		return memberShipPlans;
 	}
-	public void setMembershipPlanId(Long membershipPlanId) {
-		this.membershipPlanId = membershipPlanId;
+	public void setMemberShipPlans(Set<MemberShipPlanVo> memberShipPlans) {
+		this.memberShipPlans = memberShipPlans;
 	}
 	public List<BodyMeasurementVo> getBodyMeasurements() {
 		return bodyMeasurements;
@@ -152,6 +146,12 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setDietChart(DietChartVo dietChart) {
 		this.dietChart = dietChart;
 	}
+	public WorkoutChartVo getWorkoutChart() {
+		return workoutChart;
+	}
+	public void setWorkoutChart(WorkoutChartVo workoutChart) {
+		this.workoutChart = workoutChart;
+	}
 	public LocalDateTime getJoiningDate() {
 		return joiningDate;
 	}
@@ -164,15 +164,10 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	@Override
-	public String toString() {
-		return "MemberRequestVo [memberId=" + memberId + ", fullName=" + fullName + ", gender=" + gender + ", dob="
-				+ dob + ", addresses=" + addresses + ", email=" + email + ", MobileNo=" + MobileNo + ", idType="
-				+ idType + ", idNo=" + idNo + ", idCopy=" + idCopy + ", photo=" + photo + ", shift=" + shift
-				+ ", membershipPlanId=" + membershipPlanId + ", bodyMeasurements=" + bodyMeasurements + ", trainerId="
-				+ trainerId + ", dietChart=" + dietChart + ", joiningDate=" + joiningDate + ", isActive=" + isActive
-				+ "]";
-	}
+	  
+	
+	  
+	  
 
 	
 	

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class DietChart {
+public class WorkoutChart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ public class DietChart {
 	private String friday;
 	private String saturday;
 	private String sunday;
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
 	private Set<Member> Members = new HashSet<>();
 	
 	

@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -42,13 +43,17 @@ public class Member {
 	  private String idCopy;
 	  private String photo;
 	  private String shift;
-	  private Long membershipPlanId;
+	  @ManyToMany(fetch = FetchType.LAZY)
+	  private Set<MemberShipPlan> memberShipPlans = new HashSet<>();
 	  @OneToMany(cascade = CascadeType.ALL)
 	  private List<BodyMeasurement> bodyMeasurements = new ArrayList<>(0);
 	  private Long trainerId;
 	  @ManyToOne(fetch = FetchType.LAZY)
 	  @JoinColumn(name = "dietChart_id")
 	  private DietChart dietChart;
+	  @ManyToOne(fetch = FetchType.LAZY)
+	  @JoinColumn(name = "workoutChart_id")
+	  private WorkoutChart workoutChart;
 	  private LocalDateTime joiningDate;
 	  private boolean isActive;
 	  //@Temporal(TemporalType.TIMESTAMP)
@@ -134,11 +139,11 @@ public class Member {
 	public void setShift(String shift) {
 		this.shift = shift;
 	}
-	public Long getMembershipPlanId() {
-		return membershipPlanId;
+	public Set<MemberShipPlan> getMemberShipPlans() {
+		return memberShipPlans;
 	}
-	public void setMembershipPlanId(Long membershipPlanId) {
-		this.membershipPlanId = membershipPlanId;
+	public void setMemberShipPlans(Set<MemberShipPlan> memberShipPlans) {
+		this.memberShipPlans = memberShipPlans;
 	}
 	public List<BodyMeasurement> getBodyMeasurements() {
 		return bodyMeasurements;
@@ -157,6 +162,12 @@ public class Member {
 	}
 	public void setDietChart(DietChart dietChart) {
 		this.dietChart = dietChart;
+	}
+	public WorkoutChart getWorkoutChart() {
+		return workoutChart;
+	}
+	public void setWorkoutChart(WorkoutChart workoutChart) {
+		this.workoutChart = workoutChart;
 	}
 	public LocalDateTime getJoiningDate() {
 		return joiningDate;
@@ -188,6 +199,7 @@ public class Member {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	  
 	
 	  
 	  

@@ -1,34 +1,21 @@
-package com.business.memberservice.model;
+package com.business.memberservice.vo;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+@Component
+public class WorkoutChartVo {
 
-@Entity
-public class DietChart {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	private String monday;
+    private String monday;
 	private String tuesday;
 	private String wednesday;
 	private String thursday;
 	private String friday;
 	private String saturday;
 	private String sunday;
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	private Set<Member> Members = new HashSet<>();
-	
-	
+	private Set<MemberVo> Members = new HashSet<>();
 	
 	
 	public Long getId() {
@@ -79,12 +66,15 @@ public class DietChart {
 	public void setSunday(String sunday) {
 		this.sunday = sunday;
 	}
-	public Set<Member> getMembers() {
+	public Set<MemberVo> getMembers() {
 		return Members;
 	}
-	public void setMembers(Set<Member> members) {
+	public void setMembers(Set<MemberVo> members) {
 		Members = members;
 	}
+	
+	
+	
 	
 	
 	

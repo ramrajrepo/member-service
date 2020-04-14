@@ -9,8 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,79 +29,93 @@ import com.business.memberservice.vo.MemberResponseVo;
 import com.business.memberservice.vo.MemberVo;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping(value = "/members", produces = "application/hal+json")
 public class MemberShipController {
 	Logger logger = LoggerFactory.getLogger(MemberShipController.class);
-	@Autowired(required=true)
-	private MemberService service;
-	@Autowired
-	private MemberVo memberVo;
+
 	@Autowired
 	private MemberResponseVo memberResponseVo;
-	@Autowired(required=false)
-	private Member member;
-    @Autowired
+	@Autowired
+	private Optional<Member> member;
+	@Autowired
+	private MemberService service;
+	@Autowired
 	private ModelMapper modelMapper;
-	
-	
+
 	@PostMapping
 	public ResponseEntity<MemberResponseVo> save(@Valid @RequestBody MemberRequestVo memberRequestVo) {
-		logger.info("Started saving entity!"+memberRequestVo.toString());
-		member=service.save(modelMapper.map(memberRequestVo, Member.class));
-		//if(member.isPresent()) {
-			memberResponseVo.setMember(modelMapper.map(member, MemberVo.class));
-			memberResponseVo.setCode(Constants.CREATED);
-			memberResponseVo.setName(Constants.CREATED_NAME);
-			memberResponseVo.setMessage("Mmber created successfully!!");
-		/*}else {
-			memberResponseVo.setCode(Constants.NON_Authoritative_Information);
-			memberResponseVo.setName("FAILED");
-			memberResponseVo.setMessage("Mmber not created!!");
-		}*/
-		//memberResponseVo.getMember().add(linkTo(MemberShipController.class).slash(memberResponseVo.getMember().getId()).withSelfRel());
-       // memberResponseVo.getMember().add(linkTo(MemberShipController.class).slash(memberResponseVo.getMember().getId()).withRel("member"));
-		return new ResponseEntity<MemberResponseVo>(memberResponseVo, HttpStatus.EXPECTATION_FAILED);
+		logger.info("Started saving entity!" + memberRequestVo.toString());
+		member = service.save(modelMapper.map(memberRequestVo, Member.class));
+		if (member.isPresent()) {
+			memberResponseVo.setMember(modelMapper.map(member.get(), MemberVo.class), Constants.CREATED,
+					Constants.CREATED_NAME, "Mmber created successfully!!");
+			logger.info("Member creted successfully " + memberResponseVo.toString());
+		} else {
+			memberResponseVo.setResponse(Constants.NO_CONTENT, Constants.NOT_CREATED_NAME,
+					"Mmber not created internal server error!!");
+			logger.error("Member not creted!!");
+		}
+		// memberResponseVo.getMember().add(linkTo(MemberShipController.class).slash(memberResponseVo.getMember().getId()).withSelfRel());
+		// memberResponseVo.getMember().add(linkTo(MemberShipController.class).slash(memberResponseVo.getMember().getId()).withRel("member"));
+		return new ResponseEntity<MemberResponseVo>(memberResponseVo, HttpStatus.OK);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody MemberVo memberVo,@PathVariable Long id) {
-		//memberVo.setMember(service.saveOrUpdate(newMember));
-		return new ResponseEntity<MemberVo>(memberVo, HttpStatus.CREATED);
+	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody MemberRequestVo memberRequestVo,
+			@PathVariable final Long id) {
+		logger.info("Started updating entity!" + memberRequestVo.toString());
+		if (service.existsById(id)) {
+			memberRequestVo.setId(id);
+			member = service.save(modelMapper.map(memberRequestVo, Member.class));
+			memberResponseVo.setMember(modelMapper.map(member.get(), MemberVo.class), Constants.ACCEPTED,
+					Constants.ACCEPTED_NAME, "Mmber updated successfully!!");
+			logger.info("Member updated successfully " + memberResponseVo.toString());
+		} else {
+			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "Mmber not found!!");
+			logger.error("Member not updated " + memberResponseVo.toString());
+		}
+		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MemberVo> findById(@PathVariable Long id) {
+	public ResponseEntity<?> findById(@PathVariable final Long id) {
+		logger.info("Started seraching for id " + id);
 		Optional<Member> member = service.findById(id);
-		if (member.isPresent())
-			//memberVo.setMember(member.get());
-		//selse
-			throw new ResourceNotFoundException("Member not found!!");
-		return new ResponseEntity<MemberVo>(memberVo, HttpStatus.FOUND);
+		if (member.isPresent()) {
+			memberResponseVo.setMember(modelMapper.map(member.get(), MemberVo.class), Constants.FOUND,
+					Constants.FOUND_NAME, "Mmber found successfully!!");
+			logger.info("Member found successfully " + memberResponseVo.getMember().toString());
+		} else {
+			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "Mmber not found!!");
+			logger.error("Member not exist! " + memberResponseVo.getMember().toString());
+		}
+
+		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer pageNo,
 			@RequestParam(defaultValue = "20") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
-		List<Member> members=service.findAll(pageNo, pageSize, sortBy);
+		logger.info("Started seraching for members! ");
+		List<Member> members = service.findAll(pageNo, pageSize, sortBy);
+		if (members.isEmpty()) {
+			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "No ember exist!!");
+			// memberResponseVo.setMembers(members,Constants.NOT_FOUND,Constants.NOT_FOUND_NAME,"Mmber
+			// found!!");
+		}
 		return new ResponseEntity<>(members, HttpStatus.FOUND);
 	}
 
-	
-	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Long id){
-		service.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	public ResponseEntity<?> deleteById(@PathVariable final Long id) {
+		if (service.existsById(id)) {
+			service.deleteById(id);
+			memberResponseVo.setResponse(Constants.ACCEPTED, Constants.ACCEPTED_NAME, "Member deleted successfully!!");
+		} else {
+			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_CREATED_NAME, "Member not exist!!");
+		}
+
+		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);
 	}
 
-	
-	
-	@GetMapping("/dummy")
-	public MemberVo dummy(){
-		return new MemberVo();
-	}
-
-	
-	
-	
 }

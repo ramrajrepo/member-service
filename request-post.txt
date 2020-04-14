@@ -1,0 +1,43 @@
+{
+    "memberId": "1234",
+    "fullName": "ramraj singh",
+    "gender": "m",
+    "dob": null,
+    "addresses": [
+        {
+            "address1": "jhgj",
+            "address2": "mhghjg",
+            "street": "ghar",
+            "city": "bhopal",
+            "state": "mp",
+            "country": "india",
+            "zipCode": "676545"
+        },
+         {
+            "address1": "jhgj",
+            "address2": "mhghjg",
+            "street": "ghar",
+            "city": "bhopal",
+            "state": "mp",
+            "country": "india",
+            "zipCode": "676545"
+        }
+    ],
+    "email": "ramraj@gmail.com",
+    "idType": "voter",
+    "idNo": "12345",
+    "idCopy": "ic",
+    "photo": "photo/",
+    "shift": "morning",
+    "membershipPlanId": null,
+    "bodyMeasurements":[],
+    "workoutChart":null,
+    "trainerId": 1,
+    "dietChart": null,
+    "joiningDate": null,
+    "createdAt": null,
+    "updatedAt": null,
+    "active": false,
+    "mobileNo": "9090909090",
+    "deleted": false
+}

@@ -16,6 +16,8 @@ public class BodyMeasurementVo {
 	private int bicepsInCms;
 
 	private LocalDateTime dateOfMeasurement;
+	
+	private MemberVo member;
 
 	public Long getId() {
 		return id;
@@ -57,8 +59,14 @@ public class BodyMeasurementVo {
 		this.dateOfMeasurement = dateOfMeasurement;
 	}
 
-	
-	
+	public MemberVo getMember() {
+		return member;
+	}
+
+	public void setMember(MemberVo member) {
+		this.member = member;
+	}
+
 	
 	
 }

@@ -10,10 +10,10 @@ import com.business.memberservice.model.Member;
 @Service
 public interface MemberService {
 	
-	public Member save(Member member);
-	public Member saveOrUpdate(Member member);
+	public Optional<Member> save(Member member);
+	public Optional<Member> saveOrUpdate(Member member);
 	public Optional<Member> findById(Long id);
 	public List<Member> findAll(Integer pageNo, Integer pageSize, String sortBy);
 	public void deleteById(Long id);
-	
+	public boolean existsById(Long id);
 }
