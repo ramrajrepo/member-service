@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.business.memberservice.contsant.Constants;
 import com.business.memberservice.model.Member;
 import com.business.memberservice.service.MemberService;
-import com.business.memberservice.vo.MemberRequestVo;
 import com.business.memberservice.vo.MemberResponseVo;
 import com.business.memberservice.vo.MemberVo;
 
@@ -43,9 +42,9 @@ public class MemberShipController {
 	private ModelMapper modelMapper;
 
 	@PostMapping
-	public ResponseEntity<MemberResponseVo> save(@Valid @RequestBody MemberRequestVo memberRequestVo) {
-		logger.info("Started saving entity!" + memberRequestVo.toString());
-		member = service.save(modelMapper.map(memberRequestVo, Member.class));
+	public ResponseEntity<MemberResponseVo> save(@Valid @RequestBody MemberVo memberVo) {
+		logger.info("Started saving entity!" + memberVo.toString());
+		member = service.save(modelMapper.map(memberVo, Member.class));
 		if (member.isPresent()) {
 			memberResponseVo.setMember(modelMapper.map(member.get(), MemberVo.class), Constants.CREATED,
 					Constants.CREATED_NAME, "Mmber created successfully!!");
@@ -61,18 +60,17 @@ public class MemberShipController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody MemberRequestVo memberRequestVo,
-			@PathVariable final Long id) {
-		logger.info("Started updating entity!" + memberRequestVo.toString());
+	public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody MemberVo memberVo, @PathVariable final Long id) {
+		logger.info("Started updating entity!" + memberVo.toString());
 		if (service.existsById(id)) {
-			memberRequestVo.setId(id);
-			member = service.save(modelMapper.map(memberRequestVo, Member.class));
+			memberVo.setId(id);
+			member = service.save(modelMapper.map(memberVo, Member.class));
 			memberResponseVo.setMember(modelMapper.map(member.get(), MemberVo.class), Constants.ACCEPTED,
 					Constants.ACCEPTED_NAME, "Mmber updated successfully!!");
 			logger.info("Member updated successfully " + memberResponseVo.toString());
 		} else {
-			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "Mmber not found!!");
 			logger.error("Member not updated " + memberResponseVo.toString());
+			throw new ResourceNotFoundException("Mmber not found!!");
 		}
 		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);
 	}
@@ -86,8 +84,8 @@ public class MemberShipController {
 					Constants.FOUND_NAME, "Mmber found successfully!!");
 			logger.info("Member found successfully " + memberResponseVo.getMember().toString());
 		} else {
-			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "Mmber not found!!");
 			logger.error("Member not exist! " + memberResponseVo.getMember().toString());
+			throw new ResourceNotFoundException("Mmber not found!!");
 		}
 
 		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);
@@ -99,9 +97,7 @@ public class MemberShipController {
 		logger.info("Started seraching for members! ");
 		List<Member> members = service.findAll(pageNo, pageSize, sortBy);
 		if (members.isEmpty()) {
-			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_FOUND_NAME, "No ember exist!!");
-			// memberResponseVo.setMembers(members,Constants.NOT_FOUND,Constants.NOT_FOUND_NAME,"Mmber
-			// found!!");
+			throw new ResourceNotFoundException("No ember exist!!");
 		}
 		return new ResponseEntity<>(members, HttpStatus.FOUND);
 	}
@@ -112,7 +108,7 @@ public class MemberShipController {
 			service.deleteById(id);
 			memberResponseVo.setResponse(Constants.ACCEPTED, Constants.ACCEPTED_NAME, "Member deleted successfully!!");
 		} else {
-			memberResponseVo.setResponse(Constants.NOT_FOUND, Constants.NOT_CREATED_NAME, "Member not exist!!");
+			throw new ResourceNotFoundException("Member not exist!!");
 		}
 
 		return new ResponseEntity<>(memberResponseVo, HttpStatus.OK);

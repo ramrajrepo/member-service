@@ -1,72 +1,94 @@
 package com.business.memberservice.vo;
 
 import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class BodyMeasurementVo {
-
 	private Long id;
-
-	private int heightInCms;
-
-	private int weightInKgs;
-
-	private int bicepsInCms;
-
-	private LocalDateTime dateOfMeasurement;
-	
-	private MemberVo member;
-
+	private String bodyType;
+	private String disability;
+	private int height;
+    private int weight;
+    private int age;
+    private int biceps;
+    private int bust;
+	private int chest;
+	private int hips;
+    private LocalDateTime dateOfMeasurement;
+    
+    
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public int getHeightInCms() {
-		return heightInCms;
+	public String getBodyType() {
+		return bodyType;
 	}
-
-	public void setHeightInCms(int heightInCms) {
-		this.heightInCms = heightInCms;
+	public void setBodyType(String bodyType) {
+		this.bodyType = bodyType;
 	}
-
-	public int getWeightInKgs() {
-		return weightInKgs;
+	public String getDisability() {
+		return disability;
 	}
-
-	public void setWeightInKgs(int weightInKgs) {
-		this.weightInKgs = weightInKgs;
+	public void setDisability(String disability) {
+		this.disability = disability;
 	}
-
-	public int getBicepsInCms() {
-		return bicepsInCms;
+	public int getHeight() {
+		return height;
 	}
-
-	public void setBicepsInCms(int bicepsInCms) {
-		this.bicepsInCms = bicepsInCms;
+	public void setHeight(int height) {
+		this.height = height;
 	}
-
+	public int getWeight() {
+		return weight;
+	}
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getBiceps() {
+		return biceps;
+	}
+	public void setBiceps(int biceps) {
+		this.biceps = biceps;
+	}
+	public int getBust() {
+		return bust;
+	}
+	public void setBust(int bust) {
+		this.bust = bust;
+	}
+	public int getChest() {
+		return chest;
+	}
+	public void setChest(int chest) {
+		this.chest = chest;
+	}
+	public int getHips() {
+		return hips;
+	}
+	public void setHips(int hips) {
+		this.hips = hips;
+	}
 	public LocalDateTime getDateOfMeasurement() {
 		return dateOfMeasurement;
 	}
-
 	public void setDateOfMeasurement(LocalDateTime dateOfMeasurement) {
 		this.dateOfMeasurement = dateOfMeasurement;
 	}
 
-	public MemberVo getMember() {
-		return member;
-	}
-
-	public void setMember(MemberVo member) {
-		this.member = member;
-	}
-
 	
+    
+    
+    
 	
 }

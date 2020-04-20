@@ -1,14 +1,16 @@
-package com.business.memberservice.model;
+package com.business.memberservice.model.master;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.business.memberservice.model.MemberShip;
 
 
 
@@ -24,11 +26,11 @@ public class MemberShipPlan {
 	  private String description;
 	  private String duration;
 	  private Double amount;
-	  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-	  private Set<Member> Members = new HashSet<>();
-	  
-	  
-	  
+	  @OneToMany(fetch = FetchType.LAZY)
+	  private Set<MemberShip> MemberShips = new HashSet<>();
+	  @ManyToOne
+	  private MemberShipType memberShipType;
+	  private boolean status;
 	public Long getId() {
 		return id;
 	}
@@ -59,12 +61,25 @@ public class MemberShipPlan {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-	public Set<Member> getMembers() {
-		return Members;
+	public Set<MemberShip> getMemberShips() {
+		return MemberShips;
 	}
-	public void setMembers(Set<Member> members) {
-		Members = members;
+	public void setMemberShips(Set<MemberShip> memberShips) {
+		MemberShips = memberShips;
 	}
+	public MemberShipType getMemberShipType() {
+		return memberShipType;
+	}
+	public void setMemberShipType(MemberShipType memberShipType) {
+		this.memberShipType = memberShipType;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	  
 	  
 	
 	  

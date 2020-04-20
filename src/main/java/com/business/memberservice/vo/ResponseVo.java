@@ -1,13 +1,12 @@
 package com.business.memberservice.vo;
 
-public class Response {
 
-	int code;
-	String name;
-	String message;
+public class ResponseVo{
 	
-	
-	
+
+	 int code;
+	 String name;
+	 String message;
 	
 	
 	public int getCode() {
@@ -28,9 +27,9 @@ public class Response {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-	
-	
-	
+   
+
+
+ 	
 }
+   

@@ -2,48 +2,41 @@ package com.business.memberservice.vo;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.ElementCollection;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
-import com.business.memberservice.model.Address;
+import com.business.memberservice.vo.master.DietChartVo;
+import com.business.memberservice.vo.master.WorkOutChartVo;
 
 @Component
 public class MemberVo extends RepresentationModel<MemberVo>{
 
-	  private Long id;
-	  private String memberId;
-	  @NotNull(message="Full name should not be empety!")
-	  private String fullName;
-	  @NotNull(message="Gender should not be empety!")
-	  private String gender;
-	 // @NotNull(message="Date of birth should not be empety!")
-	  private LocalDate dob;
-      @ElementCollection
-	  private Set<Address> addresses = new HashSet<>();
-	  @Email(message="Invalid email !")
-	  private String email;
-	  @Pattern(regexp="(^$|[0-9]{10})")
-	  private String MobileNo;
-	  private String idType;
-	  private String idNo;
-	  private String idCopy;
-	  private String photo;
-	  private String shift;
-	  private Set<MemberShipPlanVo> memberShipPlans = new HashSet<>();
-      private List<BodyMeasurementVo> bodyMeasurements=new ArrayList<>(0);
-	  private Long trainerId;
-	  private DietChartVo dietChart;
-	  private WorkoutChartVo workoutChart;
-	  private LocalDateTime joiningDate;
-	  private boolean isActive;
+	private Long id;
+	private String memberId;
+	@NotNull(message="First name should not be empty!")
+	private String firstName;
+	private String lastName;
+    @NotNull(message="Gender should not be empety!")
+	private String gender;
+	private LocalDate dob;
+	@Email(message="Invalid email id !")
+	private String emailId;
+	private String contactNo;
+	private String altContactNo;
+	private String idProofType;
+	private String idProofNo;
+	private Set<AddressVo> addresses = new HashSet<>();
+	private Set<MemberShipVo> memberShips = new HashSet<>();
+	private List<BodyMeasurementVo> bodyMeasurements = new ArrayList<>();
+	private DietChartVo dietChart;
+	private WorkOutChartVo workOutChart;
+	private LocalDate joiningDate;
+	private boolean status;
 	public Long getId() {
 		return id;
 	}
@@ -56,11 +49,17 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getFullName() {
-		return fullName;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getGender() {
 		return gender;
@@ -74,59 +73,47 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	public Set<Address> getAddresses() {
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	public String getContactNo() {
+		return contactNo;
+	}
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+	public String getAltContactNo() {
+		return altContactNo;
+	}
+	public void setAltContactNo(String altContactNo) {
+		this.altContactNo = altContactNo;
+	}
+	public String getIdProofType() {
+		return idProofType;
+	}
+	public void setIdProofType(String idProofType) {
+		this.idProofType = idProofType;
+	}
+	public String getIdProofNo() {
+		return idProofNo;
+	}
+	public void setIdProofNo(String idProofNo) {
+		this.idProofNo = idProofNo;
+	}
+	public Set<AddressVo> getAddresses() {
 		return addresses;
 	}
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(Set<AddressVo> addresses) {
 		this.addresses = addresses;
 	}
-	public String getEmail() {
-		return email;
+	public Set<MemberShipVo> getMemberShips() {
+		return memberShips;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getMobileNo() {
-		return MobileNo;
-	}
-	public void setMobileNo(String mobileNo) {
-		MobileNo = mobileNo;
-	}
-	public String getIdType() {
-		return idType;
-	}
-	public void setIdType(String idType) {
-		this.idType = idType;
-	}
-	public String getIdNo() {
-		return idNo;
-	}
-	public void setIdNo(String idNo) {
-		this.idNo = idNo;
-	}
-	public String getIdCopy() {
-		return idCopy;
-	}
-	public void setIdCopy(String idCopy) {
-		this.idCopy = idCopy;
-	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	public String getShift() {
-		return shift;
-	}
-	public void setShift(String shift) {
-		this.shift = shift;
-	}
-	public Set<MemberShipPlanVo> getMemberShipPlans() {
-		return memberShipPlans;
-	}
-	public void setMemberShipPlans(Set<MemberShipPlanVo> memberShipPlans) {
-		this.memberShipPlans = memberShipPlans;
+	public void setMemberShips(Set<MemberShipVo> memberShips) {
+		this.memberShips = memberShips;
 	}
 	public List<BodyMeasurementVo> getBodyMeasurements() {
 		return bodyMeasurements;
@@ -134,44 +121,33 @@ public class MemberVo extends RepresentationModel<MemberVo>{
 	public void setBodyMeasurements(List<BodyMeasurementVo> bodyMeasurements) {
 		this.bodyMeasurements = bodyMeasurements;
 	}
-	public Long getTrainerId() {
-		return trainerId;
-	}
-	public void setTrainerId(Long trainerId) {
-		this.trainerId = trainerId;
-	}
 	public DietChartVo getDietChart() {
 		return dietChart;
 	}
 	public void setDietChart(DietChartVo dietChart) {
 		this.dietChart = dietChart;
 	}
-	public WorkoutChartVo getWorkoutChart() {
-		return workoutChart;
+	public WorkOutChartVo getWorkOutChart() {
+		return workOutChart;
 	}
-	public void setWorkoutChart(WorkoutChartVo workoutChart) {
-		this.workoutChart = workoutChart;
+	public void setWorkOutChart(WorkOutChartVo workOutChart) {
+		this.workOutChart = workOutChart;
 	}
-	public LocalDateTime getJoiningDate() {
+	public LocalDate getJoiningDate() {
 		return joiningDate;
 	}
-	public void setJoiningDate(LocalDateTime joiningDate) {
+	public void setJoiningDate(LocalDate joiningDate) {
 		this.joiningDate = joiningDate;
 	}
-	public boolean isActive() {
-		return isActive;
+	public boolean isStatus() {
+		return status;
 	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
-	  
-	
-	  
-	  
-
 	
 	
-		  
-		  
+	
+	
 	}
 

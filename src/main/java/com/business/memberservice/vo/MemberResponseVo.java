@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MemberResponseVo extends Response {
+public class MemberResponseVo extends ResponseVo {
 
 	private MemberVo member;
 

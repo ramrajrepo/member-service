@@ -1,43 +1,110 @@
+Create diet chart
+http://url/dietCharts/
+
 {
-    "memberId": "1234",
-    "fullName": "ramraj singh",
-    "gender": "m",
-    "dob": null,
-    "addresses": [
-        {
-            "address1": "jhgj",
-            "address2": "mhghjg",
-            "street": "ghar",
-            "city": "bhopal",
-            "state": "mp",
-            "country": "india",
-            "zipCode": "676545"
-        },
-         {
-            "address1": "jhgj",
-            "address2": "mhghjg",
-            "street": "ghar",
-            "city": "bhopal",
-            "state": "mp",
-            "country": "india",
-            "zipCode": "676545"
-        }
-    ],
-    "email": "ramraj@gmail.com",
-    "idType": "voter",
-    "idNo": "12345",
-    "idCopy": "ic",
-    "photo": "photo/",
-    "shift": "morning",
-    "membershipPlanId": null,
-    "bodyMeasurements":[],
-    "workoutChart":null,
-    "trainerId": 1,
-    "dietChart": null,
-    "joiningDate": null,
-    "createdAt": null,
-    "updatedAt": null,
-    "active": false,
-    "mobileNo": "9090909090",
-    "deleted": false
+  "category": "veg",
+  
+   "monday": "eggs",
+  
+   "tuesday": "milk",
+  
+   "wednesday": "panneer",
+ 
+   "thursday": "rice",
+ 
+   "friday": "chicken",
+
+   "saturday": "fish",
+ 
+   "sunday": "as u wish",
+ 
+   "status": true,
+ 
+   "dietChartDesc": "na",
+
+   "dietChartName": "level1"
+	
+
 }
+
+Create Workout chart
+http://url/workOutCharts/
+{
+     "name": null,
+    "description": null,
+   "monday": "eggs",
+  
+   "tuesday": "milk",
+  
+   "wednesday": "panneer",
+ 
+   "thursday": "rice",
+ 
+   "friday": "chicken",
+
+   "saturday": "fish",
+ 
+   "sunday": "as u wish",
+   "status": true
+ 
+
+}
+
+
+Create Membership type
+http://url/memberShipTypes/
+
+{
+   "name": "zym membership",
+   "description": "na"
+}
+
+
+Create Membership plan
+http://url/memberShipPlans/
+
+{
+  
+        "planName": "6 month",
+        "description": null,
+        "duration": null,
+        "amount": null,
+       " memberShipType":{"id":}
+        "status": false,
+
+}
+
+
+Create Member
+http://url/members/
+
+ {
+        "memberId": "12345656",
+        "firstName": "ramraj singh",
+        "lastName": "rajput",
+        "gender": "m",
+        "dob": null,
+        "emailId": "ramraj@gmail.com",
+        "contactNo": "9090909090",
+        "altContactNo": null,
+        "idProofType": "voter",
+        "idProofNo": "12345",
+        "addresses": [
+            {
+                "addressType": "parmanent",
+                "addressLine1": "bhopal",
+                "addressLine2": "jk road",
+                "street": "indrapuri",
+                "city": "bhopal",
+                "state": "mp",
+                "country": "india",
+                "zipCode": "676545"
+            }
+        ],
+        "memberShip": [{"memberShipPlan":{"id":},"shift":"morning","timing":"3444","startDate":null,"endDate":null,"status":true}],
+        "bodyMeasurements": [{"bodyType":"xyz","disability":"xyz","height":123,"weight":100,"age":75,"biceps":65}],
+        "dietChart": {"id":},
+        "workOutChart": {"id":},
+        "joiningDate": null,
+        "status": false
+    }

@@ -1,26 +1,42 @@
 package com.business.memberservice.exception;
 
-import java.util.Date;
-
 public class ErrorDetails {
    
-    private String message;
-    private String details;
 
-    public ErrorDetails(String message, String details) {
-        super();
-        
-        this.message = message;
-        this.details = details;
-    }
-
-
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDetails() {
-        return details;
-    }
+	 int code;
+	 String name;
+	 String message;
+	 
+	 
+	 
+	 
+	 
+	 
+	
+	
+	public ErrorDetails(int code, String name, String message) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.message = message;
+	}
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+  
 }

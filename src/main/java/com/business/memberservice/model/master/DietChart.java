@@ -1,9 +1,7 @@
-package com.business.memberservice.model;
+package com.business.memberservice.model.master;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,13 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.business.memberservice.model.Member;
+
 @Entity
-public class WorkoutChart {
+public class DietChart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
+	private String DietChartName;
+	private String DietChartDesc;
+	private String category;
 	private String monday;
 	private String tuesday;
 	private String wednesday;
@@ -25,10 +27,9 @@ public class WorkoutChart {
 	private String friday;
 	private String saturday;
 	private String sunday;
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.LAZY)
 	private Set<Member> Members = new HashSet<>();
-	
-	
+	boolean status;
 	
 	
 	public Long getId() {
@@ -36,6 +37,24 @@ public class WorkoutChart {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getDietChartName() {
+		return DietChartName;
+	}
+	public void setDietChartName(String dietChartName) {
+		DietChartName = dietChartName;
+	}
+	public String getDietChartDesc() {
+		return DietChartDesc;
+	}
+	public void setDietChartDesc(String dietChartDesc) {
+		DietChartDesc = dietChartDesc;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getMonday() {
 		return monday;
@@ -85,6 +104,14 @@ public class WorkoutChart {
 	public void setMembers(Set<Member> members) {
 		Members = members;
 	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	
 	
 	
 	
