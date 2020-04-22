@@ -70,7 +70,7 @@ http://url/memberShipPlans/
         "duration": null,
         "amount": null,
        " memberShipType":{"id":}
-        "status": false,
+        "status": false
 
 }
 
@@ -101,7 +101,7 @@ http://url/members/
                 "zipCode": "676545"
             }
         ],
-        "memberShip": [{"memberShipPlan":{"id":},"shift":"morning","timing":"3444","startDate":null,"endDate":null,"status":true}],
+        "memberShips": [{"memberShipPlan":{"id":},"shift":"morning","timing":"3444","startDate":null,"endDate":null,"status":true}],
         "bodyMeasurements": [{"bodyType":"xyz","disability":"xyz","height":123,"weight":100,"age":75,"biceps":65}],
         "dietChart": {"id":},
         "workOutChart": {"id":},

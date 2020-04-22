@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="form.css">
+
+
+ 
+
+
+</head>
+<body>
+
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      
+      
+      <form id="myform" name="myform" action="invoice.html">
+ 
+<h3>Membership details</h3>
+ <hr>
+    
+        <div class="row">
+          <div class="col-50">
+          
+           <div class="row">
+              <div class="col-50">
+           
+             <label for="memberShipTypes"><i ></i> Membership types</label>          
+            <select id="memberShipTypes" name="memberShipTypes" >
+            <option value="zym">zym membership</option>
+            <option value="swiming">swiming mambership</option>
+            </select>
+             
+            <label for="memberShipPlan"><i ></i> MemberShipPlan</label>  
+            <select id="memberShipPlan" name="memberShipPlan" >
+            <option value="VI">plan1</option>
+            <option value="AC">plan2</option>
+            </select>
+            
+            <label for="amount">Cost</label>
+            <input type="text" id="amount" name="amount" placeholder="amount" value="3000">
+              
+            
+            
+          </div>
+
+          <div class="col-50">
+            
+            
+            
+            
+            <div class="row">
+              <div class="col-50">
+                <label for="shift"><i ></i> Shift</label>          
+                     <select id="shift" name="shift" >
+                      <option value="morning">Morning</option>
+                      <option value="evening">Evening</option>
+                      </select>
+            </div>
+              <div class="col-50">
+               <label for="timing"><i ></i> Timing</label>  
+                <input type="time" id="timing" name="timing">
+             
+                 </div>
+            </div>
+            
+            
+            
+            <div class="row">
+              <div class="col-50">
+                <label for="startDate"><i class="fa fa-date"></i> Start Date</label>
+                <input type="date" id="startDate" name="startDate">
+            </div>
+              <div class="col-50">
+                <label for="endDate"><i class="fa fa-date"></i> End Date</label>
+                <input type="text" id="endDate" name="endDate" readonly="readonly" value="4545">
+           
+                 </div>
+            </div>
+
+
+           <div class="row">
+              <div class="col-50">
+                
+            <label for="personalTrainer"><i class="fa fa-gender"></i> Personal trainer</label>
+            <div id="radio">
+            <input type="radio" id="personalTrainer" name="personalTrainer" value="N" checked>NO
+            <input type="radio" id="personalTrainer" name="personalTrainer" value="Y">YES
+            
+            </div>
+                
+            </div>
+              <div class="col-50">
+                <label for="trainer"><i ></i> Trainer</label>          
+                     <select id="trainer" name="trainer" >
+                      <option value="trainer1">trainer1</option>
+                      <option value="trainer2">trainer1</option>
+                   </select>
+                 </div>
+            </div>
+
+
+
+          </div>
+        </div>
+ <hr>
+ <h3>Payment details</h3> <hr>
+ 
+ <label for="memberId" style="">Member Id</label>
+       <input type="text"  id="memberId" name="memberId" value="ramraj123" style="width: 150px;" >
+      
+        <div class="row">
+          <div class="col-50">
+                <label for="startDate"><i class="fa fa-date"></i> Transaction Date</label>
+                <input type="date" id="startDate" name="startDate">
+            
+                <label for="paymentMode"><i ></i> Payment Mode</label>  
+                <select id="paymentMode" name="paymentMode" >
+                 <option value="cash">cash</option>
+                 <option value="dc">Debit Card</option>
+                </select>
+            
+             
+            </div>
+            
+            
+            <div class="col-50">
+                <label for="totalAmount"><i class="fa fa-date"></i> Total Amount</label>
+                <input type="text" id="totalAmount" name="totalAmount" value="3000">
+                
+                
+                
+             <div class="row">
+              <div class="col-50">
+                <label for="payingAmount"><i class="fa fa-date"></i> Paying Amount</label>
+                <input type="text" id="payingAmount" name="payingAmount" value="3000">
+            
+            </div>
+              <div class="col-50">
+                <label for="remainingAmount"><i class="fa fa-date"></i> Remaining Amount</label>
+                <input type="text" id="remainingAmount" name="remainingAmount" value="0.00">
+            
+                 </div>
+            </div>
+             
+             
+            </div>
+       </div>
+       <input type="submit" value="Pay" class="btn">
+      </form>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

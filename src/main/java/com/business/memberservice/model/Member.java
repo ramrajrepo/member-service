@@ -34,9 +34,9 @@ public class Member {
 	private String idProofNo;
 	private String photoUrl;
 	private String idProofUrl;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "member")
 	private Set<Address> addresses = new HashSet<>();
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "member")
 	private Set<MemberShip> memberShips = new HashSet<>();
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<BodyMeasurement> bodyMeasurements = new ArrayList<>();
